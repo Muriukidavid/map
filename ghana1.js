@@ -37,10 +37,10 @@ function initMap(){
 	//overlay block1 polygon on the map
 	sect1.setMap(map);
 	//calculate area of block1
-	//var block1_area = google.maps.geometry.spherical.computeArea(sect1.getPath());
-	//var block1_area = (block1_area/10000).toFixed(1)+"ha";
+	var block1_area = google.maps.geometry.spherical.computeArea(sect1.getPath());
+	var block1_area = (block1_area/10000).toFixed(1)+"ha";
 	//show info window at block1
-	/*var block1Options = {
+	var block1Options = {
 		 content: "Block 1<br> Total area: "+block1_area
 		,boxStyle: {
 		   border: "1px solid white"
@@ -60,7 +60,7 @@ function initMap(){
 	};
 	var block1Label = new InfoBox(block1Options);
 	block1Label.open(map);
-	*/
+	
 	//design a grid
 	var side = 60; //an acre is 63.63 by 63.63 meters, use grids of approximately square acre	
 	drawGrid(block1,side,0,map);
