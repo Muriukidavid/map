@@ -1,5 +1,5 @@
 function initMap(){
-	var Acenter = new google.maps.LatLng(-0.856572, 37.547088);
+	var Acenter = new google.maps.LatLng(-0.856172, 37.547088);
 	//create our map
 	var map = new google.maps.Map(document.getElementById('map'), { 
 		center: Acenter, 

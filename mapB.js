@@ -1,10 +1,12 @@
 function initMap(){
-	var Bcenter = new google.maps.LatLng(-0.86607, 37.55285);
+	var Bcenter = new google.maps.LatLng(-0.86607, 37.55685);
 	//create our map
 	var map = new google.maps.Map(document.getElementById('map'), { 
 		center: Bcenter, 
 		zoom: 16, 
-		mapTypeId: google.maps.MapTypeId.TERRAIN
+		mapTypeId: google.maps.MapTypeId.SATELLITE,
+		heading: 0,
+		tilt: 45
 	});
 	//define blockA by coordinates
 	var blockB = [
@@ -34,4 +36,12 @@ function initMap(){
 	//design a grid
 	var side = 60 //an acre is 63.63 by 63.63 meters, use grids of approximately square acre
 	drawGrid(blockB,side,52,map);
+	//var heading = map.getHeading() || 0;
+    //map.setHeading(heading + 90);
+	rotate90(map);
 }
+function rotate90(map) {
+	var heading = map.getHeading() || 0;
+	map.setHeading(heading - 90);
+}
+
