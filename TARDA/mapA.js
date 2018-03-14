@@ -1,5 +1,6 @@
 function initMap(){
 	var Acenter = new google.maps.LatLng(-0.856172, 37.547088);
+	var posA = new google.maps.LatLng(-0.85189, 37.5435);
 	//create our map
 	var map = new google.maps.Map(document.getElementById('map'), { 
 		center: Acenter, 
@@ -37,6 +38,30 @@ function initMap(){
 	});
 	//Overlay blockA polygon on the map
 	sectA.setMap(map);
+	//calculate area of blockA
+	var z = google.maps.geometry.spherical.computeArea(sectA.getPath());
+	var blockAarea = (z/10000).toFixed(1)+"ha";
+	//show Info Window at the blockA
+	var blockAOptions = {
+		 content: "Block A<br> Total area: "+blockAarea
+		,boxStyle: {
+		   border: "1px solid white"
+		  ,textAlign: "center"
+		  ,fontSize: "8pt"
+		  ,width: "auto"
+		  ,color:"black"
+		  ,background:"white"
+		 }
+		,disableAutoPan: true
+		,pixelOffset: new google.maps.Size(-25, 0)
+		,position: posA
+		,closeBoxURL: ""
+		,isHidden: false
+		,pane: "mapPane"
+		,enableEventPropagation: true
+	};
+	var blockALabel = new InfoBox(blockAOptions);
+	blockALabel.open(map);
 	//design a grid
 	var side = 60 //an acre is 63.63 by 63.63 meters, use grids of approximately square acre	
 	drawGrid(blockA,side,side/2,map);

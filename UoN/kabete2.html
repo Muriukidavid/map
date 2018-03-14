@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+    <meta charset="utf-8">
+    <title>Map for Lower Kabete</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3&libraries=geometry"></script><!--sensor=false&-->
+    <script src="infobox.js" type="text/javascript"></script>
+    <script src="drawgrid.js"></script>
+	<script src="extrapolate.js"></script>
+    <script src="kabete2.js"></script>
+  </head>
+  <body onload=initMap()>
+    <div id="map"></div>
+  </body>
+</html>

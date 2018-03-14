@@ -158,7 +158,9 @@ function initMap(){
 			});
 			pathA.setMap(map);
 			//Label for line length
-			-0.8486843, 37.5500894
+			//-0.8486843, 37.5500894
+			length=google.maps.geometry.spherical.computeDistanceBetween(begin,end);
+			console.log(length);
 			//var lineOptions =  
 			//feed in pointB
 			var feedinpointb = new google.maps.LatLng(-0.8471609, 37.556119);
@@ -181,5 +183,7 @@ function initMap(){
 				strokeWeight: 4
 			});
 			pathB.setMap(map);
+			length2=google.maps.geometry.spherical.computeDistanceBetween(begin,end);
+			console.log(length2);
 			//show grid
 		}

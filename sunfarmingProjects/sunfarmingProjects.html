@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+    <meta charset="utf-8">
+    <title>Showing Sunfarming Projects in Kenya</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+      #legend {
+        font-family: Arial, sans-serif;
+        background: #d3d7cf;
+        padding: 10px;
+        margin: 10px;
+        padding-top: -10px;
+        border: 2px solid #888a85;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+        width:30px; 
+        margin-top:12px;
+      }
+      .icontext {
+      	padding:0;
+      	width: 20px;
+		color: blue;
+		font-size: 14px;
+		margin-left: -22.5px;
+		margin-top: 0;
+		padding-top:-20px;
+		border: 0px solid red;
+	  }
+	  .right{
+		margin-left:20px;
+	  }
+	  .bottom{
+	  	margin-left:20px;
+	  	margin-top:10px;
+	  	border:0px solid red;
+	  }
+    </style>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=geometry"></script>
+    <script src="../infobox.js" type="text/javascript"></script>
+    <script src="../grat.js" type="text/javascript"></script>
+    <script src="sunfarmingProjects.js"  type="text/javascript"></script>
+  </head>
+  <body onload=initMap()>
+    <div id="map"></div>
+    <div id="legend"><h2>Legend</h2></div>
+  </body>
+</html>

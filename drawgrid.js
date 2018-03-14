@@ -6,7 +6,7 @@
 * 	polygon: The vector of {lat,lng} obects that define a polygon. The last entry must be the same as the the last
 * 	side: 	The width/height of the grid - square grid
 */
-function drawGrid(polygon,side,pad,map){
+function drawGrid(polygon,side,pad,map,bordercolor,linecolor){
 	Number.prototype.toRad = function() {
 		return this * Math.PI / 180;
 	}
@@ -33,11 +33,10 @@ function drawGrid(polygon,side,pad,map){
 	//Rectangular bounds for our polygon, autocomputed
 	var northcoord = Math.max.apply(Math,polygon.map(function(o){return o.lat;}));
 	var southcoord = Math.min.apply(Math,polygon.map(function(o){return o.lat;}));
-	//var eastcoord = Math.max.apply(Math,polygon.map(function(o){return Math.abs(o.lng);})); //no idea why abs was used
-	//var westcoord = Math.min.apply(Math,polygon.map(function(o){return Math.abs(o.lng);})); //no idea why abs was used
 	var eastcoord = Math.max.apply(Math,polygon.map(function(o){return o.lng;}));
 	var westcoord = Math.min.apply(Math,polygon.map(function(o){return o.lng;}));
 	var bounds = {north: northcoord, south: southcoord, east: eastcoord, west: westcoord};
+	console.log(bounds)
 	//console.log("north: "+bounds.north+", south: "+bounds.south+", east: "+bounds.east+", west: "+bounds.west);
 	//get the four corners of region
 	var possw = new google.maps.LatLng(bounds.south, bounds.west);//south west of corner
@@ -55,8 +54,8 @@ function drawGrid(polygon,side,pad,map){
 	//console.log(bb);
 	var sectbb = new google.maps.Polygon({
 		paths: bb,
-		strokeColor: '#00FF00',
-		strokeOpacity: 0.9,
+		strokeColor: bordercolor,
+		strokeOpacity: 0.7,
 		strokeWeight: 2,
 		fillColor: '#FF0000',
 		fillOpacity: 0.1
@@ -67,8 +66,8 @@ function drawGrid(polygon,side,pad,map){
 	var height = google.maps.geometry.spherical.computeDistanceBetween(posnw, possw);
 	var width = google.maps.geometry.spherical.computeDistanceBetween(posnw,posne);
 	//console.log("height: "+height);
-	var hcount = 0;// keep track of lines
-	var vcount = 0;
+	var hcount = 0;// keep track of horizontal lines
+	var vcount = 0;// keep track of vertical lines
 	var nxtsw = possw;
 	//	var posse = posse.destinationPoint(90,pad/1000);//adjust width for remaining squares outside region
 	//	var posnw = posnw.destinationPoint(0,pad/1000);//adjust height for remaining squares outside region
@@ -78,15 +77,14 @@ function drawGrid(polygon,side,pad,map){
 		nxtsw = possw.destinationPoint(0,side*hcount/1000);
 		nxtse = posse.destinationPoint(0,side*hcount/1000);
 		hlinecoords = [nxtsw,nxtse];
-		hline = new google.maps.Polyline({path:hlinecoords,strokeColor: '#000000', strokeOpacity: 0.4, strokeWeight: 1});
+		hline = new google.maps.Polyline({path:hlinecoords,strokeColor: linecolor, strokeOpacity: 0.4, strokeWeight: 0.6});
 		hline.setMap(map);
 		hcount=hcount+1;
-		
 	}
 	while(vcount*side<width){
 		nxtnw = posnw.destinationPoint(90,side*vcount/1000);
 		nxtnsw = possw.destinationPoint(90,side*vcount/1000);
-		vline = new google.maps.Polyline({path: [nxtnw, nxtnsw], strokeColor: '#000000', strokeOpacity: 0.4, strokeWeight: 1});
+		vline = new google.maps.Polyline({path: [nxtnw, nxtnsw], strokeColor: linecolor, strokeOpacity: 0.4, strokeWeight: 0.6});
 		vline.setMap(map);
 		vcount = vcount+1;
 	}	
