@@ -51,7 +51,7 @@ function initMap(){
 		    });
 		    var div = document.createElement('div');
 		    var icon = sImage
-			div.innerHTML = '<img src="SUNFARMING.png"/><span class=icontext> ' + project.index.toString()+'</span><span class="right"> '+ project.name+'</span>';
+			div.innerHTML = '<img class="logo" src="SUNFARMING.png"/><span class=icontext> ' + project.index.toString()+'</span><span class="right"> '+ project.name+'</span>';
 			legend.appendChild(div);
 		}else{//show infobox type
 			var sOptions = {

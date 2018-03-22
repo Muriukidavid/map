@@ -13,18 +13,19 @@
       #map {
         height: 100%;
       }
-      #legend {
+      div#legend {
         font-family: Arial, sans-serif;
         background: #d3d7cf;
         padding: 10px;
         margin: 10px;
         padding-top: -10px;
+        margin-right:60px;
         border: 2px solid #888a85;
       }
       #legend h3 {
         margin-top: 0;
       }
-      #legend img {
+      #legend img.logo {
         vertical-align: middle;
         width:30px; 
         margin-top:12px;
@@ -47,6 +48,26 @@
 	  	margin-top:10px;
 	  	border:0px solid red;
 	  }
+	  div#top{
+	  	width:100%;
+	  	border:0px solid orange;
+	  	height: 40px;
+	  	display:inline-flex;
+	  }
+	  div.inner{
+	  	border: 0px solid red;
+	  }
+	  div.inner img{
+	  	margin:0;
+	  	padding:0;
+	  	width:100px;
+	  }
+	  div#right{
+	  	margin-left:auto; amrgin-right:0;
+	  }
+	  div#left{
+	  	margin-left:20px;
+	  }
     </style>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=geometry"></script>
     <script src="../infobox.js" type="text/javascript"></script>
@@ -55,6 +76,11 @@
   </head>
   <body onload=initMap()>
     <div id="map"></div>
-    <div id="legend"><h2>Legend</h2></div>
+    <div id="legend">
+    	<div id="top">
+    		<div class="inner" id="left"> <h2>Legend</h2> </div>
+    		<div class="inner" id="right"><img src="quality_controlled.png" /></div>
+    	</div>
+    </div>
   </body>
 </html>
