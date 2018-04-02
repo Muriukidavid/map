@@ -1,5 +1,5 @@
 function initMap(){
-			//center of our
+			//center of map
 			var masinga = new google.maps.LatLng(-0.8582151, 37.5695515);//(-0.8584893, 37.5555182);
 			var posA = new google.maps.LatLng(-0.85349, 37.5415);
 			var posB = new google.maps.LatLng(-0.86036, 37.55695);

@@ -1,4 +1,7 @@
 function initMap(){
+	//global variables
+	//var sOptions = null;
+	var sLabel = null;
 	var mapCenter = new google.maps.LatLng(0.491621, 37.904205);
 	var sfProjects = [
 	{index:1, lat:-2.355094, lng:38.029740, offset:[0,0], name:"University of Nairobi(Kibwezi): 2x20MW"},
@@ -15,14 +18,10 @@ function initMap(){
 		mapTypeId: google.maps.MapTypeId.TERRAIN
 	});
 	
-	//debugging
-	//uonProjects.forEach(function(project){console.log(project.index+": "+project.lat+", "+project.lng+", "+project.offset+", "+project.name)});
-	
 	//create a legend
 	var legend = document.getElementById('legend');
 	
-	//get google maps icons
-	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+	//create an icon for the legend
 	var sImage = {
           url: 'SUNFARMING.png',
           // This marker is 20 pixels wide by 32 pixels high.
@@ -35,47 +34,61 @@ function initMap(){
           scaledSize: new google.maps.Size(30, 30)
         };
 
-	//show Info Window or Marker at every project
-	var labelType="marker";
+	// add a marker and lengend entry for each project
 	sfProjects.forEach(function(project){
-		if(labelType=="marker"){//show marker type
-			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(project.lat, project.lng),
-				icon: sImage,
-				label: {
-					text: project.index.toString(),
-					color: 'blue',
-					fontSize: "14px"
-				},
-				map: map
-		    });
-		    var div = document.createElement('div');
-		    var icon = sImage
-			div.innerHTML = '<img class="logo" src="SUNFARMING.png"/><span class=icontext> ' + project.index.toString()+'</span><span class="right"> '+ project.name+'</span>';
-			legend.appendChild(div);
-		}else{//show infobox type
-			var sOptions = {
-				 content: project.name
+		var marker = new google.maps.Marker({
+			position: new google.maps.LatLng(project.lat, project.lng),
+			icon: sImage,
+			label: {
+				text: project.index.toString(),
+				color: 'blue',
+				fontSize: "14px"
+			},
+			map: map
+	    });
+	    
+		//Events
+		google.maps.event.addListener(marker, 'click', function() {
+			var idx = parseInt(this.label.text);
+			//console.log(idx);
+			var proj = sfProjects[idx-1];
+			//console.log(proj.name);
+			if (sLabel) {
+				sLabel.close();
+			}
+			/*var sOptions = {
+				 content: proj.name
 				,boxStyle: {
 				   border: "1px solid blue"
 				  ,textAlign: "center"
-				  ,fontSize: "10pt"
-				  ,width: "auto"
-				  ,color:"orange"
-				  ,background:"#87cefa"
+				  ,fontSize: "12pt"
+				  ,width: "150px"
+				  ,color: "black"
+				  ,background: "#d3d7cf"
 				 }
 				,disableAutoPan: false
-				,pixelOffset: new google.maps.Size(project.offset[0], project.offset[1])
-				,position: new google.maps.LatLng(project.lat, project.lng)
+				,pixelOffset: new google.maps.Size(proj.offset[0], proj.offset[1])
+				,position: new google.maps.LatLng(proj.lat, proj.lng)
 				,closeBoxURL: ""
 				,isHidden: false
 				,pane: "mapPane"
 				,enableEventPropagation: true
 			};
-			var sLabel = new InfoBox(sOptions);
+			sLabel = new InfoBox(sOptions);*/
+			sLabel = new google.maps.InfoWindow({
+		      content: proj.name
+		      ,position: new google.maps.LatLng(proj.lat, proj.lng)
+		    });
 			sLabel.open(map);
-		}
+			//setTimeout(function () { sLabel.close(); }, 5000);
+		});
+	    
+	    var div = document.createElement('div');
+	    //var icon = sImage
+		div.innerHTML = '<img class="logo" src="SUNFARMING.png"/><span class=icontext> ' + project.index.toString()+'</span><span class="right"> '+ project.name+'</span>';
+		legend.appendChild(div);
 	});
+	
 	//Add text to bottom of legend
 	var div = document.createElement('div');
 	div.innerHTML = '<div class="bottom">Total capcity: 161MW<br/>161,000 jobs in 10 years<br/>500 franchize jobs</span>';
